@@ -172,5 +172,5 @@ bookstore-management/
 
 Dự án phục vụ mục đích học tập. Không sử dụng cho mục đích thương mại nếu không được cho phép.
 <div align="center">
-  <img src="images/hung.jpe" alt="Thanks">
+  <img src="images/hung.png" alt="Thanks">
 </div>
