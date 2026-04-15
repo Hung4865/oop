@@ -171,3 +171,6 @@ bookstore-management/
 ## 📝 License
 
 Dự án phục vụ mục đích học tập. Không sử dụng cho mục đích thương mại nếu không được cho phép.
+<div align="center">
+  <img src="images/hung.jpe" alt="Thanks">
+</div>
