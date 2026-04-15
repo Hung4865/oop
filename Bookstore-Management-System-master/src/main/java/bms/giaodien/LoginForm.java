@@ -16,23 +16,23 @@ public class LoginForm extends JFrame {
         setTitle("Đăng nhập hệ thống quản lý BMS");
         setSize(750, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Dong form khong tat ung dung
-        setLocationRelativeTo(null);  // Căn giữa cửa sổ
+        setLocationRelativeTo(null); // Căn giữa cửa sổ
         setLayout(new BorderLayout());
 
         // Panel chính chứa tất cả thành phần
         JPanel panelMain = new JPanel();
-        panelMain.setLayout(new GridLayout(1, 2));  // Chia thành 2 cột
+        panelMain.setLayout(new GridLayout(1, 2)); // Chia thành 2 cột
 
         // Panel trái chứa hình đại diện
         JPanel panelLeft = new JPanel();
         panelLeft.setLayout(new BorderLayout());
-        JLabel avatar = new JLabel(new ImageIcon("C:\\Users\\PC\\Desktop\\BMS\\BMS\\src\\main\\java\\bms\\giaodien\\login.png"));
+        JLabel avatar = new JLabel(new ImageIcon("src/main/java/bms/giaodien/login.png"));
         avatar.setHorizontalAlignment(SwingConstants.CENTER);
         panelLeft.add(avatar, BorderLayout.CENTER);
 
         // Panel phải chứa form đăng nhập
         JPanel panelRight = new JPanel();
-        panelRight.setLayout(new GridBagLayout());  // Sử dụng GridBagLayout để tùy chỉnh vị trí các thành phần
+        panelRight.setLayout(new GridBagLayout()); // Sử dụng GridBagLayout để tùy chỉnh vị trí các thành phần
         panelRight.setBackground(Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -68,7 +68,7 @@ public class LoginForm extends JFrame {
 
         // Nút Login
         JButton btnLogin = new JButton("Đăng nhập");
-        btnLogin.setBackground(new Color(76, 175, 80));  // Màu xanh như trong hình
+        btnLogin.setBackground(new Color(76, 175, 80)); // Màu xanh như trong hình
         btnLogin.setForeground(Color.BLACK);
         btnLogin.setFocusPainted(false);
         gbc.gridx = 0;
@@ -101,14 +101,16 @@ public class LoginForm extends JFrame {
             Login log1 = new Login();
             try {
                 if (log1.checkLogin(username, password)) {
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!", "Thông báo",
+                            JOptionPane.INFORMATION_MESSAGE);
                     SwingUtilities.invokeLater(() -> {
                         try {
                             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                             UIManager.put("Button.arc", 10);
                             UIManager.put("Component.arc", 10);
                             UIManager.put("TextComponent.arc", 10);
-                        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
+                        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                                | UnsupportedLookAndFeelException ex) {
 
                         }
                         try {
@@ -130,7 +132,7 @@ public class LoginForm extends JFrame {
         lblForgot.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ForgotPasswordForm.openForgotPasswordForm();  // Mở form quên mk
+                ForgotPasswordForm.openForgotPasswordForm(); // Mở form quên mk
             }
         });
     }

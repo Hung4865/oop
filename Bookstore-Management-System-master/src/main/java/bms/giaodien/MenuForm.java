@@ -86,9 +86,11 @@ public class MenuForm extends JFrame {
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBackground(primaryColor);
 
-        JComboBox<String> categoryComboBox = new JComboBox<>(new String[]{"Sách", "Quà lưu niệm", "Vở", "Dụng cụ học tập", "Sách giáo khoa"});
+        JComboBox<String> categoryComboBox = new JComboBox<>(
+                new String[] { "Sách", "Quà lưu niệm", "Vở", "Dụng cụ học tập", "Sách giáo khoa" });
 
-        String[] menuItems = {"Sản Phẩm", "Nhân Viên", "Khách Hàng", "Chấm Công", "Hóa Đơn", "Quản Lý Kho", "Thống Kê", "Trợ Giúp", "Đăng Xuất"};
+        String[] menuItems = { "Sản Phẩm", "Nhân Viên", "Khách Hàng", "Chấm Công", "Hóa Đơn", "Quản Lý Kho", "Thống Kê",
+                "Trợ Giúp", "Đăng Xuất" };
         ArrayList<JButton> allButtons = new ArrayList<>();
         panel.add(cardPanel, BorderLayout.CENTER);
         //
@@ -162,15 +164,14 @@ public class MenuForm extends JFrame {
                 } else if (buttonText.equals("Trợ Giúp")) {
                     cl.show(cardPanel, "supportPanel");
                 } else if (buttonText.equals("Đăng Xuất")) {
-                    //...
+                    // ...
                     UIManager.put("Button.focusPainted", false);
                     int response = JOptionPane.showConfirmDialog(
                             null,
                             "Bạn có chắc chắn muốn đăng xuất không?",
                             "Xác nhận đăng xuất",
                             JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE
-                    );
+                            JOptionPane.QUESTION_MESSAGE);
                     if (response == JOptionPane.YES_OPTION) {
                         // Đóng form hiện tại
                         SwingUtilities.getWindowAncestor(btn).dispose();
@@ -242,7 +243,7 @@ public class MenuForm extends JFrame {
 
     private JLabel createCircularAvatar() { // OK
         try {
-            BufferedImage defaultImage = ImageIO.read(new File("C:\\Users\\PC\\Desktop\\BMS\\BMS\\src\\main\\java\\bms\\giaodien\\j97.jpg"));
+            BufferedImage defaultImage = ImageIO.read(new File("src/images/hung.jpg"));
             Graphics2D g2d = defaultImage.createGraphics();
             g2d.setColor(new Color(100, 100, 100));
             g2d.fillOval(0, 0, 80, 80);
