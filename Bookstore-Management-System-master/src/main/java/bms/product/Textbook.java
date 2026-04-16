@@ -1,121 +1,26 @@
 package bms.product;
 
-import bms.connectDB.ConnectMySQL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-
 public class Textbook extends Book {
     private String subject;
     private int grade;
     private String eduLevel;
 
-    public Textbook(String author, String publisher, int publicationYear, String genre, String language, String subject, int grade, String eduLevel, String id, String name, double costPrice, double salePrice, int quantity, String unit, String origin) {
+    public Textbook(String author, String publisher, int publicationYear, String genre, String language,
+                    String subject, int grade, String eduLevel,
+                    String id, String name, double costPrice, double salePrice, int quantity, String unit, String origin) {
         super(author, publisher, publicationYear, genre, language, id, name, costPrice, salePrice, quantity, unit, origin);
         this.subject = subject;
         this.grade = grade;
         this.eduLevel = eduLevel;
     }
 
-    // Them mot sach giao khoa vao co so du lieu
-    public void addTextbook(String author, String publisher, int publicationYear, String genre, String language, String subject, int grade, String eduLevel, String id, String name, double costPrice, double salePrice, int quantity, String unit, String origin) {
-        try {
-            Connection con = ConnectMySQL.getConnection();
-            // Chuan bi cau lenh SQL de them du lieu vao bang Textbook
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO Textbook VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, id);
-            stmt.setString(2, name);
-            stmt.setDouble(3, costPrice);
-            stmt.setDouble(4, salePrice);
-            stmt.setInt(5, quantity);
-            stmt.setString(6, unit);
-            stmt.setString(7, origin);
-            stmt.setString(8, author);
-            stmt.setString(9, publisher);
-            stmt.setInt(10, publicationYear);
-            stmt.setString(11, genre);
-            stmt.setString(12, language);
-            stmt.setString(13, subject);
-            stmt.setInt(14, grade);
-            stmt.setString(15, eduLevel);
+    // --- GETTERS & SETTERS ---
+    public String getSubject() { return subject; }
+    public void setSubject(String subject) { this.subject = subject; }
 
-            // Bam xac nhan nhap
-            int row = stmt.executeUpdate();
-            if (row > 0) {
-                // Thong bao nhap thanh cong, hien thi ra thong bao them thanh cong
-            }
-        } catch (Exception e) {
-            // Thong bao nhap du lieu khong hop le, yeu cau nhap lai
-        }
-    }
+    public int getGrade() { return grade; }
+    public void setGrade(int grade) { this.grade = grade; }
 
-    // Xoa mot sach giao khoa khoi co so du lieu
-    public void deleteTextbook(String id) {
-        try {
-            Connection con = ConnectMySQL.getConnection();
-            // Chuan bi cau lenh SQL de xoa du lieu trong bang Textbook
-            PreparedStatement stmt = con.prepareStatement("DELETE FROM Textbook WHERE id = ?");
-            stmt.setString(1, id);
-
-            // Bam xac nhan xoa
-            int row = stmt.executeUpdate();
-            if (row > 0) {
-                // Thong bao da xoa thanh cong, hien thi ra thong bao xoa thanh cong
-            }
-        } catch (Exception e) {
-            // Thong bao xoa khong thanh cong, yeu cau nhap lai id
-        }
-    }
-
-    // Cap nhat thong tin mot sach giao khoa trong co so du lieu
-    public void updateTextbook(String col, String val, String id) {
-        try {
-            Connection con = ConnectMySQL.getConnection();
-            // Chuan bi cau lenh SQL de cap nhat du lieu trong bang Textbook
-            PreparedStatement stmt = con.prepareStatement("UPDATE Textbook SET " + col + " = ? WHERE id = ?");
-            stmt.setString(1, val);
-            stmt.setString(2, id);
-
-            // Bam xac nhan cap nhat
-            int row = stmt.executeUpdate();
-            if (row > 0) {
-                // Thong bao cap nhat thanh cong, hien thi ra thong bao cap nhat thanh cong
-            }
-        } catch (Exception e) {
-            // Thong bao cap nhat khong thanh cong, yeu cau nhap lai thong tin
-        }
-    }
-
-
-    public static Textbook getProductById(String productId) throws SQLException, ClassNotFoundException {
-        String sqlString = "SELECT * FROM textbook WHERE id= ?";
-        Connection con = ConnectMySQL.getConnection();
-        try(PreparedStatement stmt = con.prepareStatement(sqlString)){
-            stmt.setString(1, productId);
-            try(ResultSet rs = stmt.executeQuery()){
-                if (rs.next()) {
-                    return new Textbook(
-                            rs.getString("author"),
-                            rs.getString("publisher"),
-                            rs.getInt("publication_year"),
-                            rs.getString("genre"),
-                            rs.getString("language"),
-                            rs.getString("subject"),
-                            rs.getInt("grade"),
-                            rs.getString("edu_level"),
-                            rs.getString("id"),
-                            rs.getString("name"),
-                            rs.getDouble("cost_price"),
-                            rs.getDouble("sale_price"),
-                            rs.getInt("quantity"),
-                            rs.getString("unit"),
-                            rs.getString("origin")
-                    );
-                }
-            }
-        }
-        return null;
-    }
+    public String getEduLevel() { return eduLevel; }
+    public void setEduLevel(String eduLevel) { this.eduLevel = eduLevel; }
 }
