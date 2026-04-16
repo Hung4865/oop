@@ -16,11 +16,17 @@ import javax.imageio.ImageIO;
 
 public class MenuForm extends JFrame {
 
-    private Color primaryColor = new Color(195, 199, 243, 255);
-    private Color textColor = new Color(50, 50, 50);
+    // ===== DARK BOOKSTORE THEME =====
+    private Color primaryColor = new Color(24, 24, 24);      // nền menu trái + title
+    private Color textColor = new Color(245, 245, 245);      // màu chữ sáng
+    private Color buttonColor = new Color(38, 38, 38);       // nút mặc định
+    private Color pressedColor = new Color(120, 98, 66);     // nút đang chọn - vàng nâu nhẹ
+    private Color hoverColor = new Color(55, 55, 55);        // hover
+
     private Font menuFont = new Font("Segoe UI", Font.BOLD, 14);
     private Font idFont = new Font("Segoe UI", Font.PLAIN, 14);
     private Font titleFont = new Font("Segoe UI", Font.BOLD, 16);
+
     private String username;
     private String id;
     private JPanel cardPanel = new JPanel(new CardLayout());
@@ -28,6 +34,7 @@ public class MenuForm extends JFrame {
     public MenuForm(String username, String id) {
         this.username = username;
         this.id = id;
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setTitle("Menu");
@@ -46,10 +53,9 @@ public class MenuForm extends JFrame {
         setSize(1200, 700);
         setLocationRelativeTo(null);
         splitPane.setDividerLocation(180);
-
     }
 
-    private JPanel createLeftMenu() { // OK
+    private JPanel createLeftMenu() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(primaryColor);
@@ -81,72 +87,73 @@ public class MenuForm extends JFrame {
         panel.add(adminPanel);
         panel.add(Box.createVerticalStrut(10));
 
-        // Tạo panel chứa các nút
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBackground(primaryColor);
 
         JComboBox<String> categoryComboBox = new JComboBox<>(
-                new String[] { "Sách", "Quà lưu niệm", "Vở", "Dụng cụ học tập", "Sách giáo khoa" });
+                new String[]{"Sách", "Quà lưu niệm", "Vở", "Dụng cụ học tập", "Sách giáo khoa"});
 
-        String[] menuItems = { "Sản Phẩm", "Nhân Viên", "Khách Hàng", "Chấm Công", "Hóa Đơn", "Quản Lý Kho", "Thống Kê",
-                "Trợ Giúp", "Đăng Xuất" };
+        String[] menuItems = {
+                "Sản Phẩm", "Nhân Viên", "Khách Hàng", "Chấm Công",
+                "Hóa Đơn", "Quản Lý Kho", "Thống Kê", "Trợ Giúp", "Đăng Xuất"
+        };
+
         ArrayList<JButton> allButtons = new ArrayList<>();
         panel.add(cardPanel, BorderLayout.CENTER);
+
         //
-        // TẠO CÁC PANEL KHÁC NHAU, MỌI NGƯỜI TỰ THÊM VÀO ĐÂY----------------------
+        // TẠO CÁC PANEL KHÁC NHAU
         //
-        // Welcome
         GUIWelcome welcomePanel = new GUIWelcome();
         cardPanel.add(welcomePanel, "welcomePanel");
-        // 2 panel test cho mọi người hiểu
+
         JPanel panel1 = new JPanel();
         panel1.setBackground(Color.BLACK);
         panel1.add(new JLabel("Đây là Panel 1"));
         cardPanel.add(panel1, "Panel 1");
-        //
+
         JPanel panel2 = new JPanel();
         panel2.setBackground(Color.LIGHT_GRAY);
         panel2.add(new JLabel("Đây là Panel 2"));
         cardPanel.add(panel2, "Panel 2");
-        // Ví dụ support nè
+
         GUISupport supportPanel = new GUISupport();
         cardPanel.add(supportPanel, "supportPanel");
-        // inventory
+
         try {
             GUIWarehouse inventoryPanel = new GUIWarehouse();
             cardPanel.add(inventoryPanel, "inventoryPanel");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MenuForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // Bill
+
         GUIBill billPanel = new GUIBill();
         cardPanel.add(billPanel.getContentPane(), "billPanel");
-        // Stats
+
         GUIStats statsPanel = new GUIStats();
         cardPanel.add(statsPanel.getContentPane(), "statsPanel");
-        // Nhan vien
+
         GUIEmployee employeePanel = new GUIEmployee();
         cardPanel.add(employeePanel, "employeePanel");
-        // Khach hang
+
         GUICustomer customerPanel = new GUICustomer();
         cardPanel.add(customerPanel, "customerPanel");
-        // GUIAttendance
+
         GUIAttendance attendancePanel = new GUIAttendance();
         cardPanel.add(attendancePanel, "attendancePanel");
-        // GUIProduct
+
         GUIProduct productPanel = new GUIProduct();
         cardPanel.add(productPanel, "productPanel");
 
         for (String menuItem : menuItems) {
             JButton btn = createMenuButton(menuItem);
             allButtons.add(btn);
-            btn.addActionListener(e -> {
-                // Lấy tên của nút vừa được nhấn
-                String buttonText = btn.getText();
 
-                // Kiểm tra tên nút và thực hiện hành động tương ứng
+            btn.addActionListener(e -> {
+                String buttonText = btn.getText();
                 CardLayout cl = (CardLayout) (cardPanel.getLayout());
+
                 if (buttonText.equals("Sản Phẩm")) {
                     cl.show(cardPanel, "productPanel");
                 } else if (buttonText.equals("Nhân Viên")) {
@@ -164,29 +171,27 @@ public class MenuForm extends JFrame {
                 } else if (buttonText.equals("Trợ Giúp")) {
                     cl.show(cardPanel, "supportPanel");
                 } else if (buttonText.equals("Đăng Xuất")) {
-                    // ...
                     UIManager.put("Button.focusPainted", false);
                     int response = JOptionPane.showConfirmDialog(
                             null,
                             "Bạn có chắc chắn muốn đăng xuất không?",
                             "Xác nhận đăng xuất",
                             JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE);
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
                     if (response == JOptionPane.YES_OPTION) {
-                        // Đóng form hiện tại
                         SwingUtilities.getWindowAncestor(btn).dispose();
                         new LoginForm().setVisible(true);
                     }
-                    // Nếu chọn "Không", hộp thoại sẽ tự động đóng mà không làm gì thêm
                 }
             });
+
             panel.add(btn);
             panel.add(Box.createVerticalStrut(10));
         }
-        // hieu ung cac nut
-        Color buttonColor = new Color(200, 168, 233); // mau nut
-        Color pressedColor = new Color(180, 138, 213); // mau khi an nut
-        Color hoverColor = new Color(227, 170, 221, 255);// mau khi hover
+
+        // Hiệu ứng màu cho nút
         for (JButton button : allButtons) {
             button.addActionListener(new ActionListener() {
                 @Override
@@ -199,37 +204,40 @@ public class MenuForm extends JFrame {
                     button.setContentAreaFilled(true);
                 }
             });
+
             button.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    if (button.getBackground() != pressedColor) {
+                    if (!button.getBackground().equals(pressedColor)) {
                         button.setBackground(hoverColor);
                         button.setContentAreaFilled(true);
                     }
                 }
 
+                @Override
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                    if (button.getBackground() != pressedColor) {
+                    if (!button.getBackground().equals(pressedColor)) {
                         button.setBackground(buttonColor);
                         button.setContentAreaFilled(true);
                     }
                 }
             });
         }
+
         return panel;
     }
 
-    private JButton createMenuButton(String text) { // OK
+    private JButton createMenuButton(String text) {
         JButton button = new JButton(text);
         button.setFont(menuFont);
         button.setForeground(textColor);
-        Color buttonColor = new Color(200, 168, 233);
         button.setBackground(buttonColor);
+
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setContentAreaFilled(true);
         button.setOpaque(true);
-        // Điều chỉnh kích thước nút
+
         button.setPreferredSize(new Dimension(180, 40));
         button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         button.setMinimumSize(new Dimension(180, 30));
@@ -242,48 +250,51 @@ public class MenuForm extends JFrame {
     }
 
     private JLabel createCircularAvatar() {
-    try {
-        // Try loading from classpath resources first, then fallback to file path
-        java.net.URL imgUrl = getClass().getResource("hung.jpg");
-        BufferedImage original;
-        if (imgUrl != null) {
-            original = ImageIO.read(imgUrl);
-        } else {
-            original = ImageIO.read(new File("src/main/java/bms/giaodien/hung.jpg"));
+        try {
+            java.net.URL imgUrl = getClass().getResource("hung.jpg");
+            BufferedImage original;
+
+            if (imgUrl != null) {
+                original = ImageIO.read(imgUrl);
+            } else {
+                original = ImageIO.read(new File("src/main/java/bms/giaodien/hung.jpg"));
+            }
+
+            BufferedImage circleBuffer = new BufferedImage(80, 80, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = circleBuffer.createGraphics();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2.setClip(new Ellipse2D.Float(0, 0, 80, 80));
+            g2.drawImage(original, 0, 0, 80, 80, null);
+            g2.dispose();
+
+            JLabel label = new JLabel(new ImageIcon(circleBuffer));
+            label.setPreferredSize(new Dimension(80, 80));
+            return label;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JLabel fallback = new JLabel("ADMIN");
+            fallback.setForeground(textColor);
+            return fallback;
         }
-
-        BufferedImage circleBuffer = new BufferedImage(80, 80, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = circleBuffer.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        g2.setClip(new Ellipse2D.Float(0, 0, 80, 80));
-        g2.drawImage(original, 0, 0, 80, 80, null);
-        g2.dispose();
-
-        JLabel label = new JLabel(new ImageIcon(circleBuffer));
-        label.setPreferredSize(new Dimension(80, 80));
-        return label;
-    } catch (Exception e) {
-        e.printStackTrace(); // để thấy lỗi thật
-        return new JLabel("ADMIN");
     }
-}
 
     private JPanel createContentPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(Color.WHITE);
 
-        // Title Panel
         JPanel titlePanel = new JPanel();
         titlePanel.setBackground(primaryColor);
         titlePanel.setPreferredSize(new Dimension(0, 40));
+
         JLabel titleLabel = new JLabel("HỆ THỐNG QUẢN LÝ BÁN HÀNG");
         titleLabel.setFont(titleFont);
         titleLabel.setForeground(textColor);
+
         titlePanel.add(titleLabel);
         panel.add(titlePanel, BorderLayout.NORTH);
-
         panel.add(cardPanel, BorderLayout.CENTER);
+
         return panel;
     }
 
