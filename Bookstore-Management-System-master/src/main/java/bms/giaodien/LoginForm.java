@@ -26,7 +26,9 @@ public class LoginForm extends JFrame {
         // Panel trái chứa hình đại diện
         JPanel panelLeft = new JPanel();
         panelLeft.setLayout(new BorderLayout());
-        JLabel avatar = new JLabel(new ImageIcon("src/main/java/bms/giaodien/login.png"));
+        java.net.URL imgUrl = getClass().getResource("login.png");
+        Icon icon = imgUrl != null ? new ImageIcon(imgUrl) : new ImageIcon("src/main/java/bms/giaodien/login.png");
+        JLabel avatar = new JLabel(icon);
         avatar.setHorizontalAlignment(SwingConstants.CENTER);
         panelLeft.add(avatar, BorderLayout.CENTER);
 

@@ -22,7 +22,7 @@ public class GUISupport extends JPanel {
                 + "Nếu bạn có bất cứ thắc mắc nào về hệ thống, vui lòng liên hệ với chúng tôi qua:<br>"
                 + "<br>"
                 + "<br>"
-                + "<b>Email:</b> nhom3oop@ptit.edu.vn<br>"
+                + "<b>Email:</b> oop@ptit.edu.vn<br>"
                 + "<b>Hotline:</b> 0123-456-789<br>"
                 + "<br>"
                 + "<br>"

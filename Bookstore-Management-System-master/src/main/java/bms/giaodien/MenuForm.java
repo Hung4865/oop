@@ -241,29 +241,33 @@ public class MenuForm extends JFrame {
         return button;
     }
 
-    private JLabel createCircularAvatar() { // OK
-        try {
-            BufferedImage defaultImage = ImageIO.read(new File("src/images/hung.jpg"));
-            Graphics2D g2d = defaultImage.createGraphics();
-            g2d.setColor(new Color(100, 100, 100));
-            g2d.fillOval(0, 0, 80, 80);
-            g2d.setColor(Color.WHITE);
-            g2d.setFont(new Font("Arial", Font.BOLD, 32));
-            g2d.drawString("A", 30, 50);
-            g2d.dispose();
-
-            BufferedImage circleBuffer = new BufferedImage(80, 80, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g2 = circleBuffer.createGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setClip(new Ellipse2D.Float(0, 0, 80, 80));
-            g2.drawImage(defaultImage, 0, 0, 80, 80, null);
-            g2.dispose();
-
-            return new JLabel(new ImageIcon(circleBuffer));
-        } catch (Exception e) {
-            return new JLabel("ADMIN");
+    private JLabel createCircularAvatar() {
+    try {
+        // Try loading from classpath resources first, then fallback to file path
+        java.net.URL imgUrl = getClass().getResource("hung.jpg");
+        BufferedImage original;
+        if (imgUrl != null) {
+            original = ImageIO.read(imgUrl);
+        } else {
+            original = ImageIO.read(new File("src/main/java/bms/giaodien/hung.jpg"));
         }
+
+        BufferedImage circleBuffer = new BufferedImage(80, 80, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = circleBuffer.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g2.setClip(new Ellipse2D.Float(0, 0, 80, 80));
+        g2.drawImage(original, 0, 0, 80, 80, null);
+        g2.dispose();
+
+        JLabel label = new JLabel(new ImageIcon(circleBuffer));
+        label.setPreferredSize(new Dimension(80, 80));
+        return label;
+    } catch (Exception e) {
+        e.printStackTrace(); // để thấy lỗi thật
+        return new JLabel("ADMIN");
     }
+}
 
     private JPanel createContentPanel() {
         JPanel panel = new JPanel(new BorderLayout());
