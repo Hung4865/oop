@@ -1,8 +1,6 @@
 # 🏪 Hệ Thống Quản Lý Nhà Sách
 
-Đây là bài tập lớn môn **Lập trình Hướng Đối Tượng (OOP)** tại Học viện Công nghệ Bưu chính Viễn thông - PTIT.  
-**Sinh viên**: Trần Đình Hào - B22DCCN278  
-**Giảng viên**: Nguyễn Mạnh Sơn | **Khóa**: D22  
+Đây là bài tập lớn môn **Lập trình Hướng Đối Tượng (OOP)** tại Học viện Công nghệ Bưu chính Viễn thông - PTIT.   
 📄 **Báo cáo**: [PDF](https://drive.google.com/file/d/18rdwKLn52ZTHDifiDIVfln72U-eSRIQV/view?usp=sharing) | [DOCX](https://docs.google.com/document/d/1CBE_-5cVg-rrDP0is8g_KoTHc92l3eux/edit?usp=sharing&ouid=113235621676813436249&rtpof=true&sd=true)
 
 👉 *Cho tôi 1 ⭐ nếu bạn thấy hữu ích nhé, mình đã dành rất nhiều tâm huyết cho project này 😅*
